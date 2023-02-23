@@ -5,15 +5,8 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   await GetStorage.init();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
+  runApp(
+     GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'Quicksand',
       ),
@@ -22,6 +15,15 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       defaultTransition: Transition.leftToRight,
-    );
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

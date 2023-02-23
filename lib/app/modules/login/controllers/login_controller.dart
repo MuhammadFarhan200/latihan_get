@@ -1,40 +1,35 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latihan_get/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:latihan_get/app/utils/api.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginController extends GetxController {
-  final _getConnect = GetConnect();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final authToken = GetStorage();
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
-  }
-
   void loginNow() async {
-    final response = await _getConnect.post(
-      BaseUrl.auth,
-      {
+    var client = http.Client();
+    var response = await client.post(
+      Uri.https(BaseUrl.auth, '/api/login'),
+      body: {
         'email': emailController.text,
         'password': passwordController.text,
       },
     );
 
-    if (response.body['success'] == true) {
-      authToken.write('token', response.body['access_token']);
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    if (decodedResponse['success'] == true) {
+      authToken.write('token', decodedResponse['access_token']);
       Get.offAll(() => const DashboardView());
     } else {
       Get.snackbar(
         'Error',
-        response.body['message'].toString(),
-        icon: const Icon(CupertinoIcons.xmark_circle_fill),
+        decodedResponse['message'].toString(),
+        icon: const Icon(Icons.error),
         backgroundColor: Colors.red,
         colorText: Colors.white,
         forwardAnimationCurve: Curves.bounceIn,
@@ -45,5 +40,12 @@ class LoginController extends GetxController {
         ),
       );
     }
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.onClose();
   }
 }

@@ -20,15 +20,15 @@ class LoginView extends GetView<LoginController> {
             Padding(
               padding: const EdgeInsets.only(top: 70),
               child: Lottie.network(
-                'https://gist.githubusercontent.com/olipiskandar/2095343e6b34255dcfb042166c4a3283/raw/d76e1121a2124640481edcf6e7712130304d6236/praujikom_kucing.json',
-                fit: BoxFit.cover
-              ),
+                  'https://gist.githubusercontent.com/olipiskandar/2095343e6b34255dcfb042166c4a3283/raw/d76e1121a2124640481edcf6e7712130304d6236/praujikom_kucing.json',
+                  fit: BoxFit.cover),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: controller.emailController,
                 decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),
                   labelText: 'Email',
                   hintText: 'Masukkan Email',
@@ -46,33 +46,27 @@ class LoginView extends GetView<LoginController> {
                 controller: controller.passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.password),
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                   hintText: 'Masukkan Password',
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  controller.loginNow();
-                },
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                  ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                controller.loginNow();
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(Get.width - 30, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
+                textStyle: const TextStyle(fontSize: 18, fontFamily: 'Quicksand'),
               ),
-            )
+              child: const Text('Login'),
+            ),
           ],
         ),
       ),

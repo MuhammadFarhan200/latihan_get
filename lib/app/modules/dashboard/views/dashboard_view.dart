@@ -109,7 +109,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                         ),
                         Text(
-                          'Author: Hanzzt',
+                          'Sumber: detik.com',
                           style: TextStyle(
                             fontSize: 14,
                           ),
@@ -121,16 +121,124 @@ class DashboardView extends GetView<DashboardController> {
               )
             ],
           ),
-        )
+        ),
       ],
     );
   }
 
-  Center teknologi() {
-    return const Center(child: Text('Teknologi'));
+  ListView teknologi() {
+     return ListView(
+      shrinkWrap: true,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+          height: 110,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://source.unsplash.com/random/100x100',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Author: Hanzzt',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          'Submer: cnn indonesia',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  Center sains() {
-    return const Center(child: Text('Sains'));
+  ListView sains() {
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+          height: 110,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://source.unsplash.com/random/100x100',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Author: Hanzzt',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          'Sumber: kompas.com',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
