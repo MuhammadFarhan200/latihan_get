@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -28,7 +27,6 @@ class LoginView extends GetView<LoginController> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: controller.emailController,
-                autofocus: true,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),
@@ -71,11 +69,14 @@ class LoginView extends GetView<LoginController> {
               child: Obx(
                 () => controller.isLoading.value
                     ? const SizedBox(
-                        height: 30,
-                        width: 30,
+                        height: 27,
+                        width: 27 ,
                         child: CircularProgressIndicator(color: Colors.white),
                       )
-                    : const Text('Login'),
+                    : const Text(
+                        'Login',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
               ),
             ),
           ],

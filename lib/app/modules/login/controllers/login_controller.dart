@@ -11,7 +11,7 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final authToken = GetStorage();
-   final isLoading = false.obs;
+  final isLoading = false.obs;
 
   void loginNow() async {
     isLoading.value = true;
@@ -28,6 +28,7 @@ class LoginController extends GetxController {
     if (decodedResponse['success'] == true) {
       isLoading.value = false;
       authToken.write('token', decodedResponse['access_token']);
+      authToken.write('full_name', decodedResponse['full_name']);
       Get.offAll(() => const DashboardView());
     } else {
       isLoading.value = false;
@@ -45,11 +46,6 @@ class LoginController extends GetxController {
         ),
       );
     }
-  }
-
-  void logout() {
-    authToken.remove('token');
-    Get.offAll(() => const LoginView());
   }
 
   @override

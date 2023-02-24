@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:latihan_get/app/data/entertaiment_response.dart';
 import 'package:latihan_get/app/data/sport_response.dart';
 import 'package:latihan_get/app/data/technology_response.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../data/headline_response.dart';
 import '../../../utils/api.dart';
@@ -13,8 +12,8 @@ class DashboardController extends GetxController {
   final getConnect = GetConnect();
   
   Future<HeadlineResponse> getHeadline() async {
-    final response = await http.get(Uri.parse(BaseUrl.headline));
-    return json.decode(response.body);
+    final response = await getConnect.get(BaseUrl.headline);
+    return HeadlineResponse.fromJson(jsonDecode(response.body));
   }
 
   Future<TechnologyResponse> getTechnology() async {

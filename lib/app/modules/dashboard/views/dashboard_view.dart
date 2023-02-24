@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:latihan_get/app/data/entertaiment_response.dart';
 import 'package:latihan_get/app/data/headline_response.dart';
 import 'package:latihan_get/app/data/sport_response.dart';
 import 'package:latihan_get/app/data/technology_response.dart';
+import 'package:latihan_get/app/modules/home/views/home_view.dart';
 import 'package:latihan_get/app/modules/login/controllers/login_controller.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/dashboard_controller.dart';
@@ -16,7 +18,8 @@ class DashboardView extends GetView<DashboardController> {
     LoginController logincontroller = Get.put(LoginController());
     DashboardController controller = Get.put(DashboardController());
     final ScrollController scrollController = ScrollController();
-    
+    final auth = GetStorage();
+
     return SafeArea(
       child: DefaultTabController(
         length: 4,
@@ -30,16 +33,9 @@ class DashboardView extends GetView<DashboardController> {
                     'Hallo',
                     textAlign: TextAlign.end,
                   ),
-                  subtitle: const Text(
-                    'Hanzzt',
+                  subtitle: Text(
+                    auth.read('full_name').toString(),
                     textAlign: TextAlign.end,
-                  ),
-                  leading: IconButton(
-                    onPressed: () {
-                      logincontroller.logout();
-                    },
-                    icon: const Icon(CupertinoIcons.square_arrow_left),
-                    tooltip: 'Logout',
                   ),
                   trailing: Container(
                     margin: const EdgeInsets.only(right: 20),
@@ -51,10 +47,11 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                   ),
                 ),
-                const Align(
-                  alignment: Alignment.topLeft,
+                 const Align(
+                  alignment: Alignment.topCenter,
                   child: TabBar(
                     labelColor: Colors.black,
+                    dividerColor: Colors.black,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.white,
                     labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Quicksand'),
@@ -76,6 +73,14 @@ class DashboardView extends GetView<DashboardController> {
               sports(controller, scrollController),
               entertainment(controller, scrollController),
             ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await auth.erase();
+              Get.offAll(() => const HomeView());
+            },
+            backgroundColor: Colors.redAccent,
+            child: const Icon(Icons.logout_rounded),
           ),
         ),
       ),
@@ -125,8 +130,13 @@ class DashboardView extends GetView<DashboardController> {
                       children: [
                         Text(
                           snapshot.data!.data![index].title.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
+                        ),
+                        Text(
+                          snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Column(
@@ -191,6 +201,7 @@ class DashboardView extends GetView<DashboardController> {
                       children: [
                         Text(
                           snapshot.data!.data![index].title.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
@@ -257,6 +268,7 @@ class DashboardView extends GetView<DashboardController> {
                       children: [
                         Text(
                           snapshot.data!.data![index].title.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
@@ -292,7 +304,7 @@ class DashboardView extends GetView<DashboardController> {
               width: Get.width / 1,
             ),
           );
-        } 
+        }
         if (!snapshot.hasData) {
           return const Center(child: Text('Tidak Ada'));
         }
@@ -323,6 +335,7 @@ class DashboardView extends GetView<DashboardController> {
                       children: [
                         Text(
                           snapshot.data!.data![index].title.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
