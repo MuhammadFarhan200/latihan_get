@@ -28,6 +28,7 @@ class LoginView extends GetView<LoginController> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: controller.emailController,
+                autofocus: true,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),

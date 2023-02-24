@@ -48,14 +48,14 @@ class Data {
       this.content});
 
   Data.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    author = json['author'];
-    title = json['title'];
-    description = json['description'];
-    url = json['url'];
-    urlToImage = json['urlToImage'];
-    publishedAt = json['publishedAt'];
-    content = json['content'];
+    name = json['name'] ?? '';
+    author = json['author'] ?? '';
+    title = json['title'] ?? '';
+    description = json['description'] ?? '';
+    url = json['url'] ?? '';
+    urlToImage = json['urlToImage'] ?? '';
+    publishedAt = json['publishedAt'] ?? '';
+    content = json['content'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

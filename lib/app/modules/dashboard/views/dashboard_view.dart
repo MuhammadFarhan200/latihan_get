@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:latihan_get/app/data/entertaiment_response.dart';
+import 'package:latihan_get/app/data/headline_response.dart';
+import 'package:latihan_get/app/data/sport_response.dart';
+import 'package:latihan_get/app/data/technology_response.dart';
 import 'package:latihan_get/app/modules/login/controllers/login_controller.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/dashboard_controller.dart';
@@ -10,9 +14,12 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     LoginController logincontroller = Get.put(LoginController());
+    DashboardController controller = Get.put(DashboardController());
+    final ScrollController scrollController = ScrollController();
+    
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(120.0),
@@ -50,11 +57,12 @@ class DashboardView extends GetView<DashboardController> {
                     labelColor: Colors.black,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.white,
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Quicksand '),
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Quicksand'),
                     tabs: [
                       Tab(text: "Headline"),
                       Tab(text: "Teknologi"),
-                      Tab(text: "Sains"),
+                      Tab(text: "Olahraga"),
+                      Tab(text: "Hiburan"),
                     ],
                   ),
                 ),
@@ -63,9 +71,10 @@ class DashboardView extends GetView<DashboardController> {
           ),
           body: TabBarView(
             children: [
-              headline(),
-              teknologi(),
-              sains(),
+              headline(controller, scrollController),
+              teknologi(controller, scrollController),
+              sports(controller, scrollController),
+              entertainment(controller, scrollController),
             ],
           ),
         ),
@@ -73,181 +82,265 @@ class DashboardView extends GetView<DashboardController> {
     );
   }
 
-  ListView headline() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
-          height: 110,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://source.unsplash.com/random/100x10$index',
-                  width: 110,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+  FutureBuilder<HeadlineResponse> headline(DashboardController controller, ScrollController scrollController) {
+    return FutureBuilder<HeadlineResponse>(
+      future: controller.getHeadline(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: LottieBuilder.network(
+              'https://assets8.lottiefiles.com/packages/lf20_6jxjxq.json',
+              repeat: true,
+              width: Get.width / 1,
+            ),
+          );
+        } else if (!snapshot.hasData) {
+          return const Center(child: Text('Tidak Ada'));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.data!.length,
+          controller: scrollController,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+              height: 110,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      snapshot.data!.data![index].urlToImage.toString(),
+                      height: 130,
+                      width: 130,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 2),
-                    Column(
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
-                          'Author: Hanzzt',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                          snapshot.data!.data![index].title.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        Text(
-                          'Sumber: detik.com',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                        const SizedBox(height: 2),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                          ],
                         ),
                       ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
   }
 
-  ListView teknologi() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
-          height: 110,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://source.unsplash.com/random/100x11$index',
-                  width: 110,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+  FutureBuilder<TechnologyResponse> teknologi(DashboardController controller, ScrollController scrollController) {
+    return FutureBuilder<TechnologyResponse>(
+      future: controller.getTechnology(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: LottieBuilder.network(
+              'https://assets8.lottiefiles.com/packages/lf20_6jxjxq.json',
+              repeat: true,
+              width: Get.width / 1,
+            ),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Center(child: Text('Tidak Ada'));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.data!.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+              height: 110,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      snapshot.data!.data![index].urlToImage.toString(),
+                      height: 130,
+                      width: 130,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 2),
-                    Column(
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
-                          'Author: Hanzzt',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                          snapshot.data!.data![index].title.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        Text(
-                          'Sumber: detik.com',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                        const SizedBox(height: 2),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                          ],
                         ),
                       ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
   }
 
-  ListView sains() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
-          height: 110,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  'https://source.unsplash.com/random/100x12$index',
-                  width: 110,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+  FutureBuilder<SportResponse> sports(DashboardController controller, ScrollController scrollController) {
+    return FutureBuilder<SportResponse>(
+      future: controller.getSport(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: LottieBuilder.network(
+              'https://assets8.lottiefiles.com/packages/lf20_6jxjxq.json',
+              repeat: true,
+              width: Get.width / 1,
+            ),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Center(child: Text('Tidak Ada'));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.data!.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+              height: 110,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      snapshot.data!.data![index].urlToImage.toString(),
+                      height: 130,
+                      width: 130,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(height: 2),
-                    Column(
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Text(
-                          'Author: Hanzzt',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                          snapshot.data!.data![index].title.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        Text(
-                          'Sumber: detik.com',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                        const SizedBox(height: 2),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                          ],
                         ),
                       ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  FutureBuilder<EntertaimentResponse> entertainment(DashboardController controller, ScrollController scrollController) {
+    return FutureBuilder<EntertaimentResponse>(
+      future: controller.getEntertainment(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: LottieBuilder.network(
+              'https://assets8.lottiefiles.com/packages/lf20_6jxjxq.json',
+              repeat: true,
+              width: Get.width / 1,
+            ),
+          );
+        } 
+        if (!snapshot.hasData) {
+          return const Center(child: Text('Tidak Ada'));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.data!.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
+              height: 110,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      snapshot.data!.data![index].urlToImage.toString(),
+                      height: 130,
+                      width: 130,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          snapshot.data!.data![index].title.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        const SizedBox(height: 2),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );

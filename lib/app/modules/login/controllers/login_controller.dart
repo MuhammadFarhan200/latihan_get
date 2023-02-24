@@ -47,15 +47,15 @@ class LoginController extends GetxController {
     }
   }
 
-    void logout() {
+  void logout() {
     authToken.remove('token');
     Get.offAll(() => const LoginView());
   }
 
   @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
+  void dispose() {
+     try { emailController.dispose(); } catch (e) {return;}
+     try { passwordController.dispose(); } catch (e) {return;}
+    super.dispose();
   }
 }
