@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:latihan_get/app/modules/login/controllers/login_controller.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/dashboard_controller.dart';
 
@@ -7,6 +9,7 @@ class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    LoginController logincontroller = Get.put(LoginController());
     return SafeArea(
       child: DefaultTabController(
         length: 3,
@@ -24,8 +27,15 @@ class DashboardView extends GetView<DashboardController> {
                     'Hanzzt',
                     textAlign: TextAlign.end,
                   ),
+                  leading: IconButton(
+                    onPressed: () {
+                      logincontroller.logout();
+                    },
+                    icon: const Icon(CupertinoIcons.square_arrow_left),
+                    tooltip: 'Logout',
+                  ),
                   trailing: Container(
-                    margin: const EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 20),
                     width: 50,
                     height: 50,
                     child: Lottie.network(
@@ -40,16 +50,11 @@ class DashboardView extends GetView<DashboardController> {
                     labelColor: Colors.black,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.white,
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Quicksand '),
                     tabs: [
-                      Tab(
-                        text: "Headline",
-                      ),
-                      Tab(
-                        text: "Teknologi",
-                      ),
-                      Tab(
-                        text: "Sains",
-                      )
+                      Tab(text: "Headline"),
+                      Tab(text: "Teknologi"),
+                      Tab(text: "Sains"),
                     ],
                   ),
                 ),
@@ -69,10 +74,11 @@ class DashboardView extends GetView<DashboardController> {
   }
 
   ListView headline() {
-    return ListView(
+    return ListView.builder(
       shrinkWrap: true,
-      children: [
-        Container(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Container(
           padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
           height: 110,
           child: Row(
@@ -81,7 +87,8 @@ class DashboardView extends GetView<DashboardController> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  'https://source.unsplash.com/random/100x100',
+                  'https://source.unsplash.com/random/100x10$index',
+                  width: 110,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -121,16 +128,17 @@ class DashboardView extends GetView<DashboardController> {
               )
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
   ListView teknologi() {
-     return ListView(
+    return ListView.builder(
       shrinkWrap: true,
-      children: [
-        Container(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Container(
           padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
           height: 110,
           child: Row(
@@ -139,7 +147,8 @@ class DashboardView extends GetView<DashboardController> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  'https://source.unsplash.com/random/100x100',
+                  'https://source.unsplash.com/random/100x11$index',
+                  width: 110,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -167,7 +176,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                         ),
                         Text(
-                          'Submer: cnn indonesia',
+                          'Sumber: detik.com',
                           style: TextStyle(
                             fontSize: 14,
                           ),
@@ -179,16 +188,17 @@ class DashboardView extends GetView<DashboardController> {
               )
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
   ListView sains() {
-    return ListView(
+    return ListView.builder(
       shrinkWrap: true,
-      children: [
-        Container(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Container(
           padding: const EdgeInsets.only(top: 5, left: 8, right: 8, bottom: 5),
           height: 110,
           child: Row(
@@ -197,7 +207,8 @@ class DashboardView extends GetView<DashboardController> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  'https://source.unsplash.com/random/100x100',
+                  'https://source.unsplash.com/random/100x12$index',
+                  width: 110,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -225,7 +236,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                         ),
                         Text(
-                          'Sumber: kompas.com',
+                          'Sumber: detik.com',
                           style: TextStyle(
                             fontSize: 14,
                           ),
@@ -234,11 +245,11 @@ class DashboardView extends GetView<DashboardController> {
                     )
                   ],
                 ),
-              ),
+              )
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

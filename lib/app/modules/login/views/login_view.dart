@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -65,7 +66,16 @@ class LoginView extends GetView<LoginController> {
                 ),
                 textStyle: const TextStyle(fontSize: 18, fontFamily: 'Quicksand'),
               ),
-              child: const Text('Login'),
+              // make a loading indicator when the button is pressed use Obx
+              child: Obx(
+                () => controller.isLoading.value
+                    ? const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(color: Colors.white),
+                      )
+                    : const Text('Login'),
+              ),
             ),
           ],
         ),
