@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:latihan_get/app/data/entertaiment_response.dart';
 import 'package:latihan_get/app/data/headline_response.dart';
 import 'package:latihan_get/app/data/sport_response.dart';
 import 'package:latihan_get/app/data/technology_response.dart';
-import 'package:latihan_get/app/modules/home/views/home_view.dart';
-import 'package:latihan_get/app/modules/login/controllers/login_controller.dart';
 import 'package:lottie/lottie.dart';
 import '../controllers/dashboard_controller.dart';
 
@@ -15,10 +11,8 @@ class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    LoginController logincontroller = Get.put(LoginController());
     DashboardController controller = Get.put(DashboardController());
     final ScrollController scrollController = ScrollController();
-    final auth = GetStorage();
 
     return SafeArea(
       child: DefaultTabController(
@@ -34,7 +28,7 @@ class DashboardView extends GetView<DashboardController> {
                     textAlign: TextAlign.end,
                   ),
                   subtitle: Text(
-                    auth.read('full_name').toString(),
+                    controller.auth.read('full_name').toString(),
                     textAlign: TextAlign.end,
                   ),
                   trailing: Container(
@@ -75,9 +69,8 @@ class DashboardView extends GetView<DashboardController> {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              await auth.erase();
-              Get.offAll(() => const HomeView());
+            onPressed: () {
+              controller.logout();
             },
             backgroundColor: Colors.redAccent,
             child: const Icon(Icons.logout_rounded),
@@ -205,6 +198,10 @@ class DashboardView extends GetView<DashboardController> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
+                        Text(
+                          snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,6 +269,10 @@ class DashboardView extends GetView<DashboardController> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
+                        Text(
+                          snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,6 +339,10 @@ class DashboardView extends GetView<DashboardController> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
+                        ),
+                        Text(
+                          snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 2),
                         Column(
