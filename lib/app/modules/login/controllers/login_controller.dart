@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latihan_get/app/modules/dashboard/views/dashboard_view.dart';
-import 'package:latihan_get/app/modules/home/views/home_view.dart';
 import 'package:latihan_get/app/utils/api.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
