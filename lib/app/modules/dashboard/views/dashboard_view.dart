@@ -134,13 +134,20 @@ class DashboardView extends GetView<DashboardController> {
                         Text(
                           snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            ),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            ),
                           ],
                         ),
                       ],
@@ -205,13 +212,20 @@ class DashboardView extends GetView<DashboardController> {
                         Text(
                           snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ],
                         ),
                       ],
@@ -276,13 +290,20 @@ class DashboardView extends GetView<DashboardController> {
                         Text(
                           snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
                           ],
                         ),
                       ],
@@ -347,13 +368,20 @@ class DashboardView extends GetView<DashboardController> {
                         Text(
                           snapshot.data!.data![index].publishedAt.toString().substring(0, 10),
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         const SizedBox(height: 2),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}'),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}'),
+                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1 ,
+                            ),
+                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1 ,
+                            ),
                           ],
                         ),
                       ],
@@ -371,74 +399,81 @@ class DashboardView extends GetView<DashboardController> {
   SingleChildScrollView profile(DashboardController controller, ScrollController scrollController) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
-      child: Expanded(
-        child: Column(
-          children: [
-            Container(
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 3,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ]
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  'https://www.hanzzt.me/img/profile.jpg',
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.cover,
+      child: Column(
+        children: [
+          Container(
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
+              ]
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(
+                'https://www.hanzzt.me/img/profile.jpg',
+                height: 150,
+                width: 150,
+                fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Muhammad Farhan Nasrulloh',
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'M Farhan Nasrulloh',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              shadows: CupertinoContextMenu.kEndBoxShadow,
+            ),
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            '@farhannsrllh_',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.network('https://cdn-icons-png.flaticon.com/512/2111/2111425.png', height: 35),
+              Image.network('https://cdn-icons-png.flaticon.com/512/3059/3059997.png', height: 35),
+              Image.network('https://cdn-icons-png.flaticon.com/512/733/733579.png', height: 35),
+            ],
+          ),
+          const SizedBox(height: 25),
+          const Text(
+            'About',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              shadows: CupertinoContextMenu.kEndBoxShadow,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(15),
+            child: Text(
+              'Hello, introduce my name is Muhammad Farhan Nasrulloh. I am a student at SMK Assalaam Bandung who is currently learning web programming. For now I already have fundamental knowledge about several programming languages and several frameworks likes PHP, HTML, CSS, Javascript, Bootstrap, Laravel, Flutter, etc.',
               style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                shadows: CupertinoContextMenu.kEndBoxShadow,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                height: 1.5,
               ),
+              textAlign: TextAlign.justify,
             ),
-            const SizedBox(height: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.network('https://cdn-icons-png.flaticon.com/512/2111/2111425.png', height: 30),
-                Image.network('https://cdn-icons-png.flaticon.com/512/3059/3059997.png', height: 30),
-                Image.network('https://cdn-icons-png.flaticon.com/512/733/733579.png', height: 30),
-              ],
-            ),
-            const SizedBox(height: 25),
-            const Text(
-              'About',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                shadows: CupertinoContextMenu.kEndBoxShadow,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(15),
-              child: Text(
-                'Hello, introduce my name is Muhammad Farhan Nasrulloh. I am a student at SMK Assalaam Bandung who is currently learning web programming. For now I already have fundamental knowledge about several programming languages and several frameworks likes PHP, HTML, CSS, Javascript, Bootstrap, Laravel, Flutter, etc.',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.justify,
-              ),
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
+          ),
+          const SizedBox(height: 30),
+        ],
       ),
     );
   }
