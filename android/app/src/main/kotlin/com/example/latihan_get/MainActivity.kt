@@ -1,4 +1,4 @@
-package com.xii.20211753169
+package com.example.latihan_get
 
 import io.flutter.embedding.android.FlutterActivity
 

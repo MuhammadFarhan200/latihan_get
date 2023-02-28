@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xii.20211753169">
+    package="com.example.latihan_get">
    <application
         android:label="Latihan GetX"
         android:name="${applicationName}"
