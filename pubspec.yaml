@@ -16,7 +16,6 @@ dependencies:
   hexcolor: ^3.0.1
   http: ^0.13.5
   lottie: ^2.2.0
-  webview_flutter: ^4.0.5
   url_launcher: ^6.1.10
 
 dev_dependencies: 

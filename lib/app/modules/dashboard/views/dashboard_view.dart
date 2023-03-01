@@ -45,12 +45,13 @@ class DashboardView extends GetView<DashboardController> {
                   ),
                 ),
                 const Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.topLeft,
                   child: TabBar(
                     labelColor: Colors.black,
                     dividerColor: Colors.black,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorColor: Colors.white,
+                    isScrollable: true,
                     labelStyle: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Quicksand'),
                     tabs: [
                       Tab(text: "Headline"),
