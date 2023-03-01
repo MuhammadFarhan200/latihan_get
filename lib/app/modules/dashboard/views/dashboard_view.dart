@@ -6,7 +6,8 @@ import 'package:latihan_get/app/data/headline_response.dart';
 import 'package:latihan_get/app/data/sport_response.dart';
 import 'package:latihan_get/app/data/technology_response.dart';
 import 'package:lottie/lottie.dart';
-  
+import 'package:url_launcher/url_launcher.dart';
+
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -140,13 +141,15 @@ class DashboardView extends GetView<DashboardController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                            Text(
+                              'Author: ${snapshot.data!.data![index].author.toString()}',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                            Text(
+                              'Sumber: ${snapshot.data!.data![index].name.toString()}',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                           ],
                         ),
@@ -218,11 +221,13 @@ class DashboardView extends GetView<DashboardController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                            Text(
+                              'Author: ${snapshot.data!.data![index].author.toString()}',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                            Text(
+                              'Sumber: ${snapshot.data!.data![index].name.toString()}',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -296,11 +301,13 @@ class DashboardView extends GetView<DashboardController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                            Text(
+                              'Author: ${snapshot.data!.data![index].author.toString()}',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                            Text(
+                              'Sumber: ${snapshot.data!.data![index].name.toString()}',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
@@ -374,13 +381,15 @@ class DashboardView extends GetView<DashboardController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Author: ${snapshot.data!.data![index].author.toString()}', 
+                            Text(
+                              'Author: ${snapshot.data!.data![index].author.toString()}',
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1 ,
+                              maxLines: 1,
                             ),
-                            Text('Sumber: ${snapshot.data!.data![index].name.toString()}', 
+                            Text(
+                              'Sumber: ${snapshot.data!.data![index].name.toString()}',
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1 ,
+                              maxLines: 1,
                             ),
                           ],
                         ),
@@ -403,17 +412,14 @@ class DashboardView extends GetView<DashboardController> {
         children: [
           Container(
             height: 150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 3,
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ]
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 3,
+                blurRadius: 3,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ]),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: Image.network(
@@ -446,9 +452,24 @@ class DashboardView extends GetView<DashboardController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.network('https://cdn-icons-png.flaticon.com/512/2111/2111425.png', height: 35),
-              Image.network('https://cdn-icons-png.flaticon.com/512/3059/3059997.png', height: 35),
-              Image.network('https://cdn-icons-png.flaticon.com/512/733/733579.png', height: 35),
+              InkWell(
+                child: Image.network('https://cdn-icons-png.flaticon.com/512/2111/2111425.png', height: 35),
+                onTap: () {
+                  launchUrl(Uri.parse('https://github.com/MuhammadFarhan200/'));
+                },
+              ),
+              InkWell(
+                child: Image.network('https://cdn-icons-png.flaticon.com/512/3059/3059997.png', height: 35),
+                onTap: () {
+                  launchUrl(Uri.parse('https://www.hanzzt.me/'));
+                },
+              ),
+              InkWell(
+                child: Image.network('https://cdn-icons-png.flaticon.com/512/733/733579.png', height: 35),
+                onTap: () {
+                  launchUrl(Uri.parse('https://twitter.com/FarhanNsrl/'));
+                },
+              ),
             ],
           ),
           const SizedBox(height: 25),
