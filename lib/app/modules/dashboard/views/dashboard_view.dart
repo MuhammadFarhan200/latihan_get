@@ -6,7 +6,7 @@ import 'package:latihan_get/app/data/headline_response.dart';
 import 'package:latihan_get/app/data/sport_response.dart';
 import 'package:latihan_get/app/data/technology_response.dart';
 import 'package:lottie/lottie.dart';
-
+  
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
